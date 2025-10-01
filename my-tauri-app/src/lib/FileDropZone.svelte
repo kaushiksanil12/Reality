@@ -160,30 +160,43 @@
   </div>
   
   {#if showDeviceSelector}
-    <div class="modal-overlay" on:click={cancelShare}>
-      <div class="modal-content" on:click|stopPropagation>
-        <h3>Select Target Device</h3>
-        <p class="modal-hint">Files will be encrypted end-to-end. Choose which device to send {selectedFiles.length} file{selectedFiles.length !== 1 ? 's' : ''} to:</p>
-        
-        <div class="device-selector-list">
-          {#each connectedDevices as device}
-            {#if device.status === 'Available'}
-              <button class="device-selector-item" on:click={() => sendToDevice(device)}>
-                <div class="device-icon">💻</div>
-                <div class="device-details">
-                  <span class="device-name">{device.name}</span>
-                  <span class="device-ip">{device.ip}:{device.port}</span>
-                </div>
-                <span class="arrow">→</span>
-              </button>
-            {/if}
-          {/each}
-        </div>
-        
-        <button class="cancel-btn" on:click={cancelShare}>Cancel</button>
+  <div class="modal-overlay">
+    <!-- svelte-ignore a11y_interactive_supports_focus -->
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <div class="modal-content" on:click|stopPropagation role="dialog" aria-modal="true">
+      <h3 id="modal-title">Select Target Device</h3>
+      <p class="modal-hint" id="modal-desc">
+        Files will be encrypted end-to-end. Choose which device to send {selectedFiles.length} file{selectedFiles.length !== 1 ? 's' : ''} to:
+      </p>
+
+      <div class="device-selector-list">
+        {#each connectedDevices as device}
+          {#if device.status === 'Available'}
+            <button class="device-selector-item" on:click={() => sendToDevice(device)}>
+              <div class="device-icon">💻</div>
+              <div class="device-details">
+                <span class="device-name">{device.name}</span>
+                <span class="device-ip">{device.ip}:{device.port}</span>
+              </div>
+              <span class="arrow">→</span>
+            </button>
+          {/if}
+        {/each}
       </div>
+
+      <button 
+        class="modal-overlay-button" 
+        on:click={cancelShare}
+        aria-label="Close device selector (press Escape)"
+      >
+        Close
+      </button>
     </div>
-  {/if}
+  </div>
+{/if}
+
+
+
   
   <style>
     .panel {
