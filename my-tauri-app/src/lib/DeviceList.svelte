@@ -68,7 +68,7 @@
     {:else}
       <div class="device-list">
         {#each devices as device (device.id)}
-          <div class="device-item" class:busy={device.status === 'Busy'}>
+        <div class="device-item" class:busy={device.status === 'Busy'}>
             <div class="device-icon-wrapper">
               <div class="device-icon">{getDeviceIcon(device.device_type)}</div>
               <div class="status-dot" style="background-color: {getStatusColor(device.status)}"></div>
@@ -81,11 +81,15 @@
                   {device.status}
                 </span>
                 <span class="device-time">• {device.ip}</span>
+                {#if device.hop_count > 1}
+                  <span class="device-hop">• Hops: {device.hop_count}</span>
+                  <span class="device-hop">• Next hop: {device.next_hop}</span>
+                {/if}
               </div>
             </div>
             
             <span class="encrypted-badge">🔐</span>
-          </div>
+          </div>          
         {/each}
       </div>
       
@@ -315,5 +319,12 @@
       color: #64748b;
       font-weight: 500;
     }
+
+    .device-hop {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-left: 8px;
+    }
+
   </style>
   

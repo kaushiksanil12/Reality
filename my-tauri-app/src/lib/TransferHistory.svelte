@@ -38,6 +38,14 @@
             <div class="transfer-header">
               <div class="filename-row">
                 <span class="transfer-filename">{transfer.filename}</span>
+                <div class="transfer-path">
+                    <span>Path: </span>
+                    {#each transfer.hops as hop, index (index)}
+                      <span class="hop">{hop}</span>
+                      {#if index < transfer.hops.length - 1}<span class="arrow"> → </span>{/if}
+                    {/each}
+                  </div>
+                  
                 {#if transfer.encrypted}
                   <span class="encrypted-icon" title="Encrypted">🔐</span>
                 {/if}
@@ -207,5 +215,27 @@
       color: #10b981;
       font-weight: 600;
     }
+    .transfer-path {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.hop {
+  font-weight: 600;
+  background: #e0f2fe;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.arrow {
+  font-weight: 600;
+  color: #3b82f6;
+}
+
   </style>
   

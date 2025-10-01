@@ -160,6 +160,8 @@
   </div>
   
   {#if showDeviceSelector}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="modal-overlay" on:click={cancelShare}>
       <div class="modal-content" on:click|stopPropagation>
         <h3>Select Target Device</h3>
